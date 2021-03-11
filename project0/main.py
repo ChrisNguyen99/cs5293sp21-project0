@@ -51,7 +51,24 @@ def createdb():
 def populatedb(db, incidents)
     con = sqlite3.connect('normanpd.db')
     cur = con.cursor()
+    incidents.pop(0)
+    incidents.pop(0)
+    incidents.pop(0)
+    for row in incidents:
+        time = re.search(r"3\w*2021 \w+:\w+\b", row)
+        num = re.search(r"2021-\w+\b", row)
+        loc = re.search(r"\b[A-Z0-9] \t+ ^[A-Z]$", row)
+        nature = re.search(r"\w[A-Z][a-z]* (\s[A-Z][a-z]*)*)) ", row)
+        ori = re.search("\w[A-Z]+", row)
+        temp = [time,num,loc,nature,ori]
+        cur.execute("INSERT INTO incidents VALUES(?,?,?,?,?)", temp)
+    con.commit()
+    cur.close()
+    con.close()
     
+def status():
+    con = sqlite3.connect('normanpd.db')
+    cur - con.cursor()
     
     
 def main(url):
