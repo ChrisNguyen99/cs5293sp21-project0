@@ -69,7 +69,7 @@ def populatedb(db, incidents)
 def status():
     con = sqlite3.connect('normanpd.db')
     cur - con.cursor()
-    
+    cur.execute("SELECT nature FROM incidents ORDER BY nature")
     
 def main(url):
     #download data
