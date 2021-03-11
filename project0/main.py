@@ -1,6 +1,9 @@
 import argparse
 import urllib
 import project0
+import PyPDF2
+import tempfile
+import re
 
 def fetchincidents(url):
     url = ("https://www.normanok.gov/sites/default/files/documents/2021-03/2021-03-01_daily_incident_summary.pdf")
@@ -10,14 +13,46 @@ def fetchincidents(url):
     
     data = urllib.request.urlopen(urllib.request.Request(url, headers=headers)).read()
 
+def extractincidents(data):
+    fp = tempfile.TemporaryFile()
+    row = []
+    arr = []
+    #write to temp file
+    fp.write(data.read())
+    
+    #set cursor to beginning
+    fp.seek(0)
+    
+    #read pdf
+    pdfReader = PyPDF2.pdf.PdfFileReader(fp) 
+    
+    #loop through pages and extract to array
+    for x in range(pdfReader.getNumPages()):
+        # Get first page
+        page1 = pdfReader.getPage(0).extractText()
+        row = page1.split("\n")
+        for y in row
+            arr.append(y)
+    
+    return arr
+    
 def createdb():
-    CREATE TABLE incidents (
+    con = sqlite3.connect('normanpd.db')
+    cur = con.cursor()
+    
+    cur.execute("CREATE TABLE incidents(
         incident_time TEXT,
         incident_number TEXT,
         incident_location TEXT,
         nature TEXT,
-        incident_ori TEXT
-    );
+        incident_ori TEXT)")
+    con.commit()
+    
+def populatedb(db, incidents)
+    con = sqlite3.connect('normanpd.db')
+    cur = con.cursor()
+    
+    
     
 def main(url):
     #download data
