@@ -8,12 +8,11 @@ import tempfile
 import re
 from urllib import request
 import sqlite3
-
 from project0 import main
 
 url =  "https://www.normanok.gov/sites/default/files/documents/2021-03/2021-03-01_daily_incident_summary.pdf"
+incident_data = main.fetchincidents(url)
 
-def test_check_file():
-    main.fetchincidents(url)
-    file = open('temp.txt', 'rb')
-    assert file != None
+def test_extract():
+    incidents = main.extractincidents(incident_data)
+    assert  len(incidents) > 1

@@ -46,7 +46,7 @@ def createdb():
     con = sqlite3.connect('normanpd.db')
     cur = con.cursor()
     cur.execute("DROP TABLE IF EXISTS incidents")
-    cur.execute("CREATE TABLE IF NOT EXISTS  incidents(\
+    cur.execute("CREATE TABLE incidents(\
         incident_time TEXT,\
         incident_number TEXT,\
         incident_location TEXT,\
@@ -79,7 +79,7 @@ def populatedb(db, incidents):
         match = re.search('^2021-', str)
         if match != None:
             num.append(str)
-        match = re.search('[A-Z0-9\s ]+ [A-Z0-9\s ]+ [A-Z0-9 ]+', str)
+        match = re.search('[A-Z0-9 ]+ [A-Z0-9 ]+ [A-Z0-9 ]+', str)
         if match != None:
             loc.append(str)
         match = re.search('[A-Z]+[a-z]+', str)
@@ -108,7 +108,8 @@ def status():
         natures.append(row)
     for nat in range(len(natures)):
         print(natures[nat][0],'|',natures[nat][1],sep='')
-    
+    return natures
+
 def main(url):
     #download data
     incident_data = fetchincidents(url)
