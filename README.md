@@ -3,7 +3,7 @@ project 0 of Text Analytics
 Christopher Nguyen  
 getting list of natures from incident pdf on norman pd site with count of each incident  
 python3 on linux 
-pipenv, PyPDF2, sqlite3, re, urllib should be installed 
+pipenv, PyPDF2, sqlite3, re, urllib, argparse, tempfile should be installed 
   
 Instructions:  
 get code using git clone into desired directory git@github.com:ChrisNguyen99/cs5293sp21-project0.git  
